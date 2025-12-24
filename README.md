@@ -30,4 +30,4 @@ using sockets, threads, and queues — not to rely on existing tools.
 
 > ⚠️ Scan only systems you own or have permission to test.
 
-python <file_path> <ip> <start_port> <end_port>
+python <file_path> <ip_addr> <start_port> <end_port>
