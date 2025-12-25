@@ -31,7 +31,7 @@ def take_flags(lst,ip,q):
     global s_r,e_r
 
     if len(sys.argv)<2:
-        print("Error: py file_path.py -h for Usage")
+        print("Error: py file_path.py -h for help")
         sys.exit(1)
     
     try:
@@ -64,7 +64,7 @@ def take_flags(lst,ip,q):
                     case '4': lst[2] = 7
                     case '5': lst[2] = 10
                     case '1': lst[2] = 1
-                    case _  : raise ValueError("Error: py file_path.py -h for Usage")
+                    case _  : raise ValueError()
             elif flg[:2] == '-p':
                 temp = map(int,flg[2:].split(","))
                 for prt in temp:
@@ -80,7 +80,7 @@ def take_flags(lst,ip,q):
                     case '4': lst[1] = 80
                     case '5': lst[1] = 100
                     case '1': lst[1] = 20
-                    case _  : raise ValueError("Error: py file_path.py -h for Usage")
+                    case _  : raise ValueError()
             elif(flg[:2] == '-t'):
                 match flg[2:]:
                     case '1': lst[0] = 0.3
@@ -88,12 +88,12 @@ def take_flags(lst,ip,q):
                     case '4': lst[0] = 1.5
                     case '5': lst[0] = 2
                     case '3': lst[0] = 1
-                    case _  : raise ValueError("Error: py file_path.py -h for Usage")
+                    case _  : raise ValueError()
             else:
                 raise Exception()
 
     except Exception:
-        print("Error: py file_path.py -h for Usage")
+        print("Error: py <file path> -h for help")
         sys.exit(1)
 
 
