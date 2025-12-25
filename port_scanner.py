@@ -31,7 +31,7 @@ def take_flags(lst,ip,q):
 
     if len(sys.argv)<2:
         print("Error: py file_path.py -h for Usage")
-        return
+        sys.exit(1)
     
     try:
         var = sys.argv[1]
@@ -81,6 +81,7 @@ def take_flags(lst,ip,q):
 
     except Exception:
         print("Error: py file_path.py -h for Usage")
+        sys.exit(1)
 
 
 def worker(que,ip,timeout,thread_cnt):
@@ -116,7 +117,7 @@ def main():
 if __name__ == '__main__':
     processing_units = [1,20,1]
     q = Queue()
-    s_r,e_r = 0,0
+    s_r,e_r = 1,1000
     ip = 'localhost'
     start = time.perf_counter()
     main()
