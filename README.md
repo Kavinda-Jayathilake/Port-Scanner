@@ -1,28 +1,29 @@
 # Port Scanner
 
-A simple multi-threaded TCP port scanner written in Python.
+A TCP port scanner written in Python using sockets, threading, and multiprocessing.
 
-This project is built to understand how port scanning works internally,
-using sockets, threads, and queues — not to rely on existing tools.
-
----
-
-## What this scanner does
-
-- Scans a range of TCP ports on a target IP
-- Uses `connect()` (TCP connect scan)
-- Uses multiple threads for faster scanning
-- Uses a queue to distribute ports safely between threads
-- You can make it more faster changing sock.settimeout(1) to 0.3-0.5. but less accurate
+This project is built as a learning exercise to understand how port scanners work internally,
+including concurrency, timeouts, and task distribution.
 
 ---
 
-## How it works (brief)
+## Features
+
+- TCP connect-based port scanning
+- Multi-threaded scanning using a queue
+- Optional multi-process scanning
+- Custom timeout control
+- Scan specific ports or port ranges
+- Basic command-line flag handling
+
+---
+
+## How it works
 
 - Ports are added to a queue
-- Multiple worker threads take ports from the queue
-- Each thread tries to connect to a port using a TCP socket
-- If the connection succeeds, the port is marked as open
+- Worker threads take ports from the queue and attempt TCP connections
+- Optionally, multiple processes are used to split the port range
+- Open ports are printed when a connection succeeds
 
 ---
 
@@ -30,6 +31,4 @@ using sockets, threads, and queues — not to rely on existing tools.
 
 > ⚠️ Scan only systems you own or have permission to test.
 
-python <file_path> <ip_addr> <start_port> <end_port>
-
-Ex - python port_scanner.py 127.0.0.1 1 1000
+python scanner.py <ip> [options]
