@@ -5,6 +5,7 @@ from queue import Queue
 import re
 import multiprocessing
 import time
+import os
 
 def scan(q,ip,timeout):
     while True:
@@ -35,10 +36,20 @@ def take_flags(lst,ip,q):
     
     try:
         var = sys.argv[1]
-        pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
-        match = re.match(pattern,var)
-        if not match:
-            raise ValueError("IP address should be in x.x.x.x form")
+        if var == '-h':
+            file_path = os.path.join(os.getcwd(),'help.txt')
+            try:
+                with open(file_path,'r') as file:
+                    print(file.read())
+            except FileNotFoundError:
+                print("File not found.visit : git@github.com:Kavinda-Jayathilake/Port-Scanner.git")
+            finally:
+                sys.exit(1)
+        else:
+            pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+            match = re.match(pattern,var)
+            if not match:
+                raise ValueError("IP address should be in x.x.x.x form")
         for flg in sys.argv[2:]:
             if(flg[:2] == '-r'):
                 start,end = map(int,flg[2:].split(","))
@@ -54,13 +65,13 @@ def take_flags(lst,ip,q):
                     case '5': lst[2] = 10
                     case '1': lst[2] = 1
                     case _  : raise ValueError("Error: py file_path.py -h for Usage")
-            elif(flg[:2] == '-p'):
+            elif flg[:2] == '-p':
                 temp = map(int,flg[2:].split(","))
                 for prt in temp:
                     if valid(prt): q.put(prt)
                     else:
                         raise ValueError("Invalid port range")
-            elif(flg[:2] == "-P"):
+            elif flg[:2] == '-P':
                 pass
             elif len(flg)>7 and flg[:7] == '-thread':
                 match flg[7:]:
@@ -78,6 +89,8 @@ def take_flags(lst,ip,q):
                     case '5': lst[0] = 2
                     case '3': lst[0] = 1
                     case _  : raise ValueError("Error: py file_path.py -h for Usage")
+            else:
+                raise Exception()
 
     except Exception:
         print("Error: py file_path.py -h for Usage")
